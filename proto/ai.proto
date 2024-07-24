@@ -1,0 +1,73 @@
+syntax =  "proto3";
+package ai;
+
+service AiService {
+    rpc loadKnowledge(LoadKnowledgeRequest) returns (LoadKnowledgeResponse){}
+    rpc createAgentRun(CreateAssistantRunRequest) returns (CreateAssistantRunResponse){}
+    rpc sendMessage(AssistantChatRequest) returns (AssistantChatResponse){}
+    rpc sendHistory(GetHistoryRequest) returns (GetHistoryResponse){}
+}
+
+enum AiAssistantType {
+    AUTO_PDF = 0;
+    RAG_PDF = 1;
+}
+
+message KnowledgeProperty {
+    string prompt = 1;
+    string description = 2;
+    repeated string instructions = 3;
+    repeated string extra_instructions = 4;
+    string expected_output = 5;
+}
+
+message LoadKnowledgeRequest {
+    AiAssistantType assistant = 1;
+    string agent_collection_name = 2;
+    repeated string website_urls = 3;
+    repeated string pdf_urls = 4;
+    KnowledgeProperty property = 5;
+}
+
+message LoadKnowledgeResponse {
+    string result = 1;
+}
+
+message CreateAssistantRunRequest {
+    string user_id = 1;
+    string agent_collection_name = 2;
+    AiAssistantType assistant = 3;
+    KnowledgeProperty property = 4;
+}
+
+message CreateAssistantRunResponse{
+    string run_id = 1;
+    string user_id = 2;
+    repeated string chat_history = 3;
+}
+
+message AssistantChatRequest {
+    string message = 1;
+    bool stream = 2;
+    string run_id = 3;
+    string user_id = 4;
+    string agent_collection_name = 5;
+    AiAssistantType assistant = 6;
+    KnowledgeProperty property = 7;
+}
+
+message AssistantChatResponse{
+    string message = 1;
+}
+
+message GetHistoryRequest {
+    string run_id = 1;
+    string user_id = 2;
+    AiAssistantType assistant = 3;
+    string agent_collection_name = 4;
+    KnowledgeProperty property = 5;
+}
+
+message GetHistoryResponse {
+    string history = 1;
+}

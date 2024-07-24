@@ -1,0 +1,8 @@
+{
+  "name": "ai-chatbot-proto",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:heydevs-io/ai-chatbot-proto.git",
+  "author": "clay <tadinhtien5@gmail.com>",
+  "license": "MIT"
+}
