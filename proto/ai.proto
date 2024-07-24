@@ -8,10 +8,7 @@ service AiService {
     rpc sendHistory(GetHistoryRequest) returns (GetHistoryResponse){}
 }
 
-enum AiAssistantType {
-    AUTO_PDF = 0;
-    RAG_PDF = 1;
-}
+
 
 message KnowledgeProperty {
     string prompt = 1;
@@ -22,7 +19,7 @@ message KnowledgeProperty {
 }
 
 message LoadKnowledgeRequest {
-    AiAssistantType assistant = 1;
+    string assistant = 1;
     string agent_collection_name = 2;
     repeated string website_urls = 3;
     repeated string pdf_urls = 4;
@@ -36,7 +33,7 @@ message LoadKnowledgeResponse {
 message CreateAssistantRunRequest {
     string user_id = 1;
     string agent_collection_name = 2;
-    AiAssistantType assistant = 3;
+    string assistant = 3;
     KnowledgeProperty property = 4;
 }
 
@@ -52,7 +49,7 @@ message AssistantChatRequest {
     string run_id = 3;
     string user_id = 4;
     string agent_collection_name = 5;
-    AiAssistantType assistant = 6;
+    string assistant = 6;
     KnowledgeProperty property = 7;
 }
 
@@ -63,7 +60,7 @@ message AssistantChatResponse{
 message GetHistoryRequest {
     string run_id = 1;
     string user_id = 2;
-    AiAssistantType assistant = 3;
+    string assistant = 3;
     string agent_collection_name = 4;
     KnowledgeProperty property = 5;
 }
